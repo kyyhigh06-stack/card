@@ -87,6 +87,12 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
 .pc .ph{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:800}
 .pc .ph button{border:0;background:none;font-size:22px;color:var(--muted);padding:0 4px}
 .pc .pb{flex:1;min-height:0}
+.hint{background:#FFFBEA;border:1px solid #F3E3A3;border-radius:10px;padding:9px 11px;font-size:13.5px;color:#5C4B12}
+.kind2{display:flex;gap:6px}.kind2 label{flex:1;margin:0}.kind2 input{position:absolute;opacity:0;pointer-events:none}
+.kind2 span{display:block;text-align:center;padding:10px 0;border:1px solid var(--line);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+.kind2 input:checked+span{border-color:var(--blue);background:var(--soft);color:var(--blue)}
+.kind2 input:focus-visible+span{outline:2px solid var(--blue);outline-offset:2px}
+.stay{margin:-4px 0 0;font-size:13.5px;font-weight:700;color:var(--blue)}
 </style>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -159,13 +165,14 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
         <div class="f"><label for="height">키 (cm)</label><input id="height" type="number" inputmode="numeric" min="50" max="230" placeholder="170"></div>
         <div class="f"><label for="weight">몸무게 (kg)</label><input id="weight" type="number" inputmode="numeric" min="10" max="250" placeholder="65"></div>
       </div>
-      <div class="f"><span class="lbl">최근 3개월 안에 수술을 받으신 적이 있나요? <em>*</em></span>
+      <div class="f"><span class="lbl">최근 3개월 안에 입원하거나 수술을 받으신 적이 있나요? <em>*</em></span>
         <div class="seg">
           <label><input type="radio" name="surgery" value="no"><span>없음</span></label>
           <label><input type="radio" name="surgery" value="yes"><span>있음</span></label>
         </div></div>
+      <div id="sgHint" class="hint hidden">기억나는 대로 적어주세요. 날짜는 달력에서 골라주세요.</div>
       <div id="sgList" class="hidden" style="display:flex;flex-direction:column;gap:10px"></div>
-      <button type="button" class="add hidden" id="sgAdd">＋ 수술 이력 하나 더 추가</button>
+      <button type="button" class="add hidden" id="sgAdd">＋ 입원·수술 이력 하나 더 추가</button>
       <p class="err" data-err></p>
       <div class="nav"><button class="btn sec" type="button" data-prev>이전</button><button class="btn pri" type="button" data-next>다음</button></div>
     </section>
@@ -178,8 +185,8 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
         <div class="doc">수집 항목: 성함, 연락처, 주소, 직업, 사업장 주소, 차량번호, 자동차보험 만기, 관심 분야, 통화 가능 시간, 보험증권 사본<br>이용 목적: 보험 상담, 기존 보험 보장 분석, 보험 상품 설계 및 안내<br>보유 기간: 상담 종료 후 1년 (보험계약 체결 시 관련 법령에서 정한 기간)<br>동의를 거부할 수 있으며, 거부 시 상담이 제한될 수 있습니다.</div></div>
       <div class="cbx"><div class="r"><input type="checkbox" id="agId" data-ag><label class="t" for="agId">[필수] 고유식별정보 처리 동의<small>주민등록번호 · 보험 설계·가입 목적</small></label><button type="button" data-doc>보기</button></div>
         <div class="doc">처리 항목: 주민등록번호<br>처리 목적: 보험 상품 설계, 보험료 산출, 보험계약 체결 진행<br>근거: 보험업법 시행령 제102조 (고유식별정보의 처리)<br>보유 기간: 위 개인정보 보유 기간과 같음<br>동의를 거부할 수 있으며, 거부 시 설계·가입 진행이 어렵습니다.</div></div>
-      <div class="cbx"><div class="r"><input type="checkbox" id="agHealth" data-ag><label class="t" for="agHealth">[필수] 민감정보 처리 동의<small>키·몸무게·수술 이력 · 보험 설계·인수 검토 목적</small></label><button type="button" data-doc>보기</button></div>
-        <div class="doc">처리 항목: 키, 몸무게, 최근 3개월 수술 여부·사유·날짜·병원<br>처리 목적: 보험 상품 설계 및 가입 가능 여부 사전 검토<br>보유 기간: 위 개인정보 보유 기간과 같음<br>동의를 거부할 수 있으며, 거부 시 정확한 설계가 어렵습니다.</div></div>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agHealth" data-ag><label class="t" for="agHealth">[필수] 민감정보 처리 동의<small>키·몸무게·입원·수술 이력 · 보험 설계·인수 검토 목적</small></label><button type="button" data-doc>보기</button></div>
+        <div class="doc">처리 항목: 키, 몸무게, 최근 3개월 입원·수술 여부·사유·날짜·병원<br>처리 목적: 보험 상품 설계 및 가입 가능 여부 사전 검토<br>보유 기간: 위 개인정보 보유 기간과 같음<br>동의를 거부할 수 있으며, 거부 시 정확한 설계가 어렵습니다.</div></div>
       <div class="cbx"><div class="r"><input type="checkbox" id="agMarketing" data-ag data-optional><label class="t" for="agMarketing">[선택] 상품 안내 연락 수신 동의<small>새 상품·보장 점검 안내 (전화·문자·카카오톡)</small></label></div></div>
       <p class="err" data-err></p>
       <div class="nav"><button class="btn sec" type="button" data-prev>이전</button><button class="btn pri" type="submit" id="send">보내기</button></div>
@@ -252,27 +259,55 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
       if(!/^01\d-\d{3,4}-\d{4}$/.test(val('phone'))) return err('연락처를 010-0000-0000 형식으로 입력해 주세요.');
     }
     if(n===3){
-      var s=radio('surgery'); if(!s) return err('최근 3개월 수술 여부를 골라주세요.');
-      if(s==='yes' && !$$('#sgList [data-reason]').some(function(i){return i.value.trim()})) return err('수술 사유를 적어주세요.');
+      var s=radio('surgery'); if(!s) return err('최근 3개월 입원·수술 여부를 골라주세요.');
+      if(s==='yes'){
+        var cards=$$('#sgList .sg');
+        for(var i=0;i<cards.length;i++){
+          var c=cards[i], k=sgKind(c), no=cards.length>1?(i+1)+'번째 이력: ':'';
+          if(!k) return err(no+'입원인지 수술인지 골라주세요.');
+          if(!c.querySelector('[data-reason]').value.trim()) return err(no+'병명·사유를 적어주세요.');
+          if(k!=='수술'){
+            var a=c.querySelector('[data-in]').value, b=c.querySelector('[data-out]').value;
+            if(!a||!b) return err(no+'입원일과 퇴원일을 골라주세요.');
+            if(b<a) return err(no+'퇴원일이 입원일보다 빠릅니다.');
+          }
+          if(k!=='입원' && !c.querySelector('[data-date]').value) return err(no+'수술일을 골라주세요.');
+        }
+      }
     }
     return err('');
   }
   $$('[data-next]').forEach(function(b){ b.addEventListener('click',function(){ if(check(step)) show(step+1); }); });
   $$('[data-prev]').forEach(function(b){ b.addEventListener('click',function(){ err(''); show(step-1); }); });
 
-  // 수술 이력
+  // 입원·수술 이력
+  function sgKind(c){ var r=c.querySelector('[data-kind]:checked'); return r?r.value:''; }
+  function stayDays(a,b){ if(!a||!b||b<a) return 0; return Math.round((new Date(b)-new Date(a))/864e5)+1; }
   function addSg(){
     var n=$$('#sgList .sg').length; if(n>=5) return;
-    var d=document.createElement('div'); d.className='sg';
-    d.innerHTML='<div class="f"><label>수술 사유 (병명) <em>*</em></label><input type="text" data-reason maxlength="60" placeholder="예) 담낭 결석"></div>'+
-      '<div class="two"><div class="f"><label>수술 날짜</label><input type="date" data-date></div><div class="f"><label>병원 (선택)</label><input type="text" data-hospital maxlength="40" placeholder="병원 이름"></div></div>'+
+    var d=document.createElement('div'); d.className='sg'; var k='sgk'+Date.now()+n;
+    d.innerHTML='<div class="f"><label>어떤 이력인가요? <em>*</em></label><div class="kind2">'+
+      ['입원','수술','입원+수술'].map(function(v){return '<label><input type="radio" data-kind name="'+k+'" value="'+v+'"><span>'+v+'</span></label>';}).join('')+'</div></div>'+
+      '<div class="f"><label>병명 · 사유 <em>*</em></label><input type="text" data-reason maxlength="60" placeholder="예) 폐렴, 담낭 결석"></div>'+
+      '<div class="two hidden" data-inbox><div class="f"><label>입원일 <em>*</em></label><input type="date" data-in></div><div class="f"><label>퇴원일 <em>*</em></label><input type="date" data-out></div></div>'+
+      '<p class="stay hidden" data-stay></p>'+
+      '<div class="f hidden" data-opbox><label>수술일 <em>*</em></label><input type="date" data-date></div>'+
+      '<div class="f"><label>병원 (선택)</label><input type="text" data-hospital maxlength="40" placeholder="병원 이름"></div>'+
       (n?'<button type="button" class="x">삭제</button>':'');
     var x=d.querySelector('.x'); if(x) x.addEventListener('click',function(){d.remove();});
+    function upd(){
+      var kk=sgKind(d);
+      d.querySelector('[data-inbox]').classList.toggle('hidden',!kk||kk==='수술');
+      d.querySelector('[data-opbox]').classList.toggle('hidden',!kk||kk==='입원');
+      var days=stayDays(d.querySelector('[data-in]').value,d.querySelector('[data-out]').value), st=d.querySelector('[data-stay]');
+      st.textContent=days?'입원 기간: '+days+'일':''; st.classList.toggle('hidden',!(days&&kk&&kk!=='수술'));
+    }
+    $$('input',d).forEach(function(i){ i.addEventListener('change',upd); });
     $('#sgList').appendChild(d);
   }
   $$('input[name=surgery]').forEach(function(r){ r.addEventListener('change',function(){
     var yes=radio('surgery')==='yes';
-    $('#sgList').classList.toggle('hidden',!yes); $('#sgAdd').classList.toggle('hidden',!yes);
+    $('#sgList').classList.toggle('hidden',!yes); $('#sgAdd').classList.toggle('hidden',!yes); $('#sgHint').classList.toggle('hidden',!yes);
     if(yes && !$$('#sgList .sg').length) addSg();
   }); });
   $('#sgAdd').addEventListener('click',addSg);
@@ -327,7 +362,7 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
       interests:$$('#interests input:checked').map(function(c){return c.value}), callTime:radio('callTime'),
       carNo:val('carNo'), carExpiry:val('carExpiry'), height:val('height'), weight:val('weight'),
       surgery:radio('surgery'),
-      surgeries:$$('#sgList .sg').map(function(s){return {reason:s.querySelector('[data-reason]').value,date:s.querySelector('[data-date]').value,hospital:s.querySelector('[data-hospital]').value};}),
+      surgeries:$$('#sgList .sg').map(function(s){var k=sgKind(s),a=s.querySelector('[data-in]').value,b=s.querySelector('[data-out]').value;return {kind:k,reason:s.querySelector('[data-reason]').value,admit:k==='수술'?'':a,discharge:k==='수술'?'':b,days:k==='수술'?0:stayDays(a,b),date:k==='입원'?'':s.querySelector('[data-date]').value,hospital:s.querySelector('[data-hospital]').value};}),
       files:files.map(function(f){return {mime:f.mime,b64:f.b64};}),
       agreePrivacy:true, agreeId:true, agreeHealth:true, agreeMarketing:$('#agMarketing').checked
     };
