@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8">
-<title>고객 정보 카드 · 더베스트금융서비스</title>
+<title>고객 정보 입력 · 더베스트금융서비스</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="상담 전에 기본 정보만 입력해 주세요. 2~3분이면 끝나요.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kyyhigh06-stack.github.io/card/">
 <meta property="og:site_name" content="더베스트금융서비스 Zeus사업부">
-<meta property="og:title" content="고객 정보 카드 · 김영윤 지점장">
+<meta property="og:title" content="고객 정보 입력 · 더베스트금융서비스">
 <meta property="og:description" content="상담 전에 기본 정보만 입력해 주세요. 2~3분이면 끝나요.">
 <meta property="og:image" content="https://kyyhigh06-stack.github.io/card/og.jpg?v=1">
 <meta property="og:image:width" content="1200">
@@ -78,10 +78,21 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
 .card b{color:var(--navy)}
 .foot{padding:14px 18px 22px;color:var(--muted);font-size:12px;text-align:center}
 </style>
+<style>
+.addr{display:flex;gap:8px}.addr input{flex:1;min-width:0}.addr input[readonly]{background:#F8F8F9;cursor:pointer}
+.addr button{flex:none;border:0;border-radius:11px;background:var(--navy);color:#fff;font:inherit;font-weight:700;font-size:15px;padding:0 16px}
+.addr2{margin-top:8px}
+.pc{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.pc .pn{background:#fff;width:100%;max-width:520px;height:85%;border-radius:18px 18px 0 0;display:flex;flex-direction:column;overflow:hidden}
+.pc .ph{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:800}
+.pc .ph button{border:0;background:none;font-size:22px;color:var(--muted);padding:0 4px}
+.pc .pb{flex:1;min-height:0}
+</style>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <div class="wrap">
-  <div class="hd"><div class="pf">김</div><div><small>THE BEST 금융서비스 · Zeus사업부</small><b>김영윤 지점장 고객 정보 카드</b></div></div>
+  <div class="hd"><div class="pf">김</div><div><small>더베스트금융서비스 · Zeus사업부</small><b>고객 정보 입력</b></div></div>
   <div class="prog" id="prog"><i></i></div>
 
   <form id="fm" novalidate>
@@ -99,9 +110,13 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
         <div class="rrn"><input id="rrnF" type="tel" inputmode="numeric" maxlength="6" placeholder="앞 6자리" autocomplete="off"><span>–</span><input id="rrnB" type="password" inputmode="numeric" maxlength="7" placeholder="뒤 7자리" autocomplete="off"></div>
         <small>🔒 뒷자리는 화면에서 가려집니다. 보험 설계·가입 목적으로만 쓰입니다.</small></div>
       <div class="f"><label for="phone">연락처 <em>*</em></label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="13" placeholder="010-0000-0000"></div>
-      <div class="f"><label for="address">주소</label><input id="address" type="text" autocomplete="street-address" maxlength="120" placeholder="시·구·동까지만 적으셔도 돼요"></div>
+      <div class="f"><label for="address">주소</label>
+        <div class="addr"><input id="address" type="text" readonly maxlength="120" placeholder="주소 검색을 눌러 주세요" data-addr><button type="button" data-addr-btn="address">주소 검색</button></div>
+        <input class="addr2" id="address2" type="text" maxlength="60" placeholder="나머지 주소 (동·호수 등)"></div>
       <div class="f"><label for="job">직업</label><input id="job" type="text" maxlength="40" placeholder="예) 회사원, 자영업"></div>
-      <div class="f hidden" id="bizBox"><label for="bizAddress">사업장 주소</label><input id="bizAddress" type="text" maxlength="120" placeholder="사업장 소재지"></div>
+      <div class="f hidden" id="bizBox"><label for="bizAddress">사업장 주소</label>
+        <div class="addr"><input id="bizAddress" type="text" readonly maxlength="120" placeholder="주소 검색을 눌러 주세요" data-addr><button type="button" data-addr-btn="bizAddress">주소 검색</button></div>
+        <input class="addr2" id="bizAddress2" type="text" maxlength="60" placeholder="나머지 주소 (동·호수 등)"></div>
       <p class="err" data-err></p>
       <div class="nav"><button class="btn pri" type="button" data-next>다음</button></div>
     </section>
@@ -173,8 +188,8 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
 
   <div class="done hidden" id="done">
     <div class="ck">✓</div>
-    <h2>잘 받았습니다</h2>
-    <p id="doneMsg">김영윤 지점장이 확인 후 연락드리겠습니다.</p>
+    <h2>소중한 정보 감사합니다</h2>
+    <p id="doneMsg">보내주신 정보는 안전하게 보관하고<br>정성껏 관리하겠습니다.</p>
     <div class="card"><b>김영윤 지점장</b><br>더베스트금융서비스 Zeus사업부</div>
   </div>
   <div class="foot">입력하신 정보는 담당 설계사만 확인합니다.</div>
@@ -192,9 +207,32 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
   }
   function err(msg){ var e=$('.step.on [data-err]'); e.textContent=msg||''; return !msg; }
   function val(id){ return ($('#'+id).value||'').trim(); }
+  function full(id){ return [val(id), val(id+'2')].filter(Boolean).join(' '); }  // 검색한 주소 + 나머지 주소
   function radio(n){ var r=$('input[name="'+n+'"]:checked'); return r?r.value:''; }
 
   // 사업장 주소 표시
+  // 주소 검색 (카카오 우편번호 서비스)
+  function addrSearch(id){
+    if(!(window.daum && daum.Postcode)){  // 서비스를 못 불러오면 직접 입력
+      $$('[data-addr]').forEach(function(i){ i.readOnly=false; i.placeholder='주소를 입력해 주세요'; });
+      $('#'+id).focus(); return;
+    }
+    var box=document.createElement('div'); box.className='pc';
+    box.innerHTML='<div class="pn"><div class="ph">주소 검색<button type="button" aria-label="닫기">✕</button></div><div class="pb"></div></div>';
+    document.body.appendChild(box);
+    box.querySelector('.ph button').onclick=function(){ box.remove(); };
+    new daum.Postcode({
+      width:'100%', height:'100%',
+      oncomplete:function(d){
+        var a=d.roadAddress||d.jibunAddress||d.address, x=[];
+        if(d.bname) x.push(d.bname); if(d.buildingName) x.push(d.buildingName);
+        $('#'+id).value=a+(x.length?' ('+x.join(', ')+')':'');
+        box.remove(); $('#'+id+'2').focus();
+      }
+    }).embed(box.querySelector('.pb'));
+  }
+  $$('[data-addr-btn]').forEach(function(b){ b.addEventListener('click',function(){ addrSearch(b.dataset.addrBtn); }); });
+  $$('[data-addr]').forEach(function(i){ i.addEventListener('click',function(){ if(i.readOnly) addrSearch(i.id); }); });
   $$('input[name=kind]').forEach(function(r){ r.addEventListener('change',function(){ $('#bizBox').classList.toggle('hidden', radio('kind')==='개인'); }); });
   // 전화번호 자동 하이픈
   $('#phone').addEventListener('input',function(e){
@@ -285,7 +323,7 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
     var btn=$('#send'); btn.disabled=true; btn.textContent='보내는 중…';
     var data={
       kind:radio('kind'), name:val('name'), rrnFront:val('rrnF'), rrnBack:val('rrnB'), phone:val('phone'),
-      address:val('address'), job:val('job'), bizAddress:radio('kind')==='개인'?'':val('bizAddress'),
+      address:full('address'), job:val('job'), bizAddress:radio('kind')==='개인'?'':full('bizAddress'),
       interests:$$('#interests input:checked').map(function(c){return c.value}), callTime:radio('callTime'),
       carNo:val('carNo'), carExpiry:val('carExpiry'), height:val('height'), weight:val('weight'),
       surgery:radio('surgery'),
@@ -298,7 +336,6 @@ input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--sof
       .then(function(res){
         if(!res || !res.ok) throw new Error((res && res.error) || '');
         $('#fm').classList.add('hidden'); $('#prog').classList.add('hidden'); $('#done').classList.remove('hidden');
-        var ct=radio('callTime'); if(ct) $('#doneMsg').textContent='김영윤 지점장이 확인 후 '+ct+'에 연락드리겠습니다.';
         window.scrollTo(0,0);
       })
       .catch(function(x){
