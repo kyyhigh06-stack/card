@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<title>고객 정보 카드 · 더베스트금융서비스</title>
+<meta name="robots" content="noindex">
+<meta property="og:title" content="고객 정보 카드">
+<meta property="og:description" content="더베스트금융서비스 김영윤 지점장 · 상담 전 기본 정보 입력">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--navy:#133A4F;--navy2:#0B6189;--blue:#006B96;--sky:#3FB4E8;--soft:#E3F0F5;--bg:#F5F4F4;--card:#FFFFFF;--line:#DEDBDC;
+--text:#2F2E31;--muted:#67656A;--red:#B42318;--ok:#1E6B5F;--okbg:#E3F0ED}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:520px;margin:0 auto;min-height:100vh;background:var(--card);display:flex;flex-direction:column}
+.hd{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px max(18px,env(safe-area-inset-left)) 16px;display:flex;gap:12px;align-items:center}
+.pf{width:46px;height:46px;border-radius:50%;background:#A8DDF3;color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:18px;flex:0 0 auto}
+.hd small{display:block;color:#A8DDF3;font-size:12px;font-weight:700;letter-spacing:.02em}
+.hd b{font-size:17px}
+.prog{height:5px;background:#E3E1E2}.prog i{display:block;height:100%;width:25%;background:var(--sky);transition:width .25s}
+form{flex:1;display:flex;flex-direction:column}
+.step{display:none;flex-direction:column;gap:16px;padding:20px 18px 24px;flex:1}
+.step.on{display:flex}
+h2{margin:0;font-size:21px;color:var(--navy)}
+.sub{margin:-12px 0 0;color:var(--muted);font-size:14px}
+.f label,.lbl{display:block;font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.f label em,.lbl em{color:var(--red);font-style:normal}
+.f small{display:block;color:var(--muted);font-size:12.5px;margin-top:5px}
+input[type=text],input[type=tel],input[type=password],input[type=date],input[type=number]{width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:16px;background:#fff;color:var(--text);-webkit-appearance:none}
+input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--soft)}
+.rrn{display:flex;align-items:center;gap:8px}.rrn input{flex:1;text-align:center;letter-spacing:.12em}.rrn span{color:var(--muted)}
+.two{display:flex;gap:10px}.two>*{flex:1;min-width:0}
+.seg{display:flex;gap:8px}
+.seg label{flex:1;margin:0}
+.seg input,.chips input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;padding:12px 0;border:1px solid var(--line);border-radius:11px;font-size:15px;font-weight:600;cursor:pointer}
+.seg input:checked+span{border-color:var(--blue);background:var(--soft);color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{margin:0}
+.chips span{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:999px;font-size:14.5px;cursor:pointer}
+.chips input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg input:focus-visible+span,.chips input:focus-visible+span{outline:2px solid var(--blue);outline-offset:2px}
+.up{border:1.5px dashed #C2BEC0;border-radius:12px;padding:16px;text-align:center;color:var(--muted);font-size:14px;cursor:pointer;display:block}
+.up b{display:block;color:var(--blue);font-size:15px;margin-bottom:2px}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.thumbs div{width:64px;height:64px;border-radius:9px;background:var(--soft) center/cover;position:relative;font-size:11px;display:grid;place-items:center;color:var(--blue)}
+.thumbs button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--navy);color:#fff;font-size:13px;line-height:22px;padding:0}
+.sg{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px;position:relative}
+.sg .x{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--muted);font-size:13px}
+.add{border:1.5px dashed #C2BEC0;background:none;border-radius:11px;padding:11px;color:var(--blue);font:inherit;font-weight:700;font-size:14.5px}
+.cbx{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:12px}
+.cbx .r{display:flex;gap:10px;align-items:flex-start}
+.cbx input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--blue);flex:0 0 auto}
+.cbx .t{flex:1;font-size:14.5px}
+.cbx .t small{display:block;color:var(--muted);font-size:12.5px}
+.cbx button{border:0;background:none;color:var(--muted);text-decoration:underline;font:inherit;font-size:13px;padding:0}
+.cbx .doc{display:none;margin-top:10px;background:var(--bg);border-radius:9px;padding:10px 12px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.cbx.open .doc{display:block}
+.all{font-weight:800;color:var(--navy)}
+.nav{display:flex;gap:10px;margin-top:auto;padding-top:8px}
+.btn{flex:1;border:0;border-radius:13px;padding:15px;font:inherit;font-weight:800;font-size:16px;cursor:pointer}
+.pri{background:var(--navy);color:#fff}.sec{background:var(--bg);color:var(--text);flex:0 0 32%}
+.btn:disabled{opacity:.55}
+.err{color:var(--red);font-size:14px;min-height:20px;margin:0}
+.hidden{display:none!important}
+.done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:40px 24px;text-align:center}
+.done .ck{width:76px;height:76px;border-radius:50%;background:var(--okbg);color:var(--ok);display:grid;place-items:center;font-size:36px;font-weight:900}
+.done h2{font-size:22px}
+.done p{margin:0;color:var(--muted)}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left;width:100%;max-width:320px;font-size:14px}
+.card b{color:var(--navy)}
+.foot{padding:14px 18px 22px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd"><div class="pf">김</div><div><small>THE BEST 금융서비스 · Zeus사업부</small><b>김영윤 지점장 고객 정보 카드</b></div></div>
+  <div class="prog" id="prog"><i></i></div>
+
+  <form id="fm" novalidate>
+    <!-- 1 -->
+    <section class="step on" data-step="1">
+      <h2>기본 정보</h2><p class="sub">1 / 4단계 · 상담 준비를 위해 필요해요</p>
+      <div class="f"><span class="lbl">고객 구분 <em>*</em></span>
+        <div class="seg">
+          <label><input type="radio" name="kind" value="개인" checked><span>개인</span></label>
+          <label><input type="radio" name="kind" value="개인사업자"><span>개인사업자</span></label>
+          <label><input type="radio" name="kind" value="법인"><span>법인</span></label>
+        </div></div>
+      <div class="f"><label for="name">성함 <em>*</em></label><input id="name" type="text" autocomplete="name" maxlength="40" placeholder="홍길동"></div>
+      <div class="f"><label for="rrnF">주민등록번호 <em>*</em></label>
+        <div class="rrn"><input id="rrnF" type="tel" inputmode="numeric" maxlength="6" placeholder="앞 6자리" autocomplete="off"><span>–</span><input id="rrnB" type="password" inputmode="numeric" maxlength="7" placeholder="뒤 7자리" autocomplete="off"></div>
+        <small>🔒 뒷자리는 화면에서 가려집니다. 보험 설계·가입 목적으로만 쓰입니다.</small></div>
+      <div class="f"><label for="phone">연락처 <em>*</em></label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="13" placeholder="010-0000-0000"></div>
+      <div class="f"><label for="address">주소</label><input id="address" type="text" autocomplete="street-address" maxlength="120" placeholder="시·구·동까지만 적으셔도 돼요"></div>
+      <div class="f"><label for="job">직업</label><input id="job" type="text" maxlength="40" placeholder="예) 회사원, 자영업"></div>
+      <div class="f hidden" id="bizBox"><label for="bizAddress">사업장 주소</label><input id="bizAddress" type="text" maxlength="120" placeholder="사업장 소재지"></div>
+      <p class="err" data-err></p>
+      <div class="nav"><button class="btn pri" type="button" data-next>다음</button></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="step" data-step="2">
+      <h2>상담 받고 싶은 내용</h2><p class="sub">2 / 4단계 · 여러 개 고르셔도 돼요</p>
+      <div class="chips" id="interests">
+        <label><input type="checkbox" value="건강·암"><span>건강·암</span></label>
+        <label><input type="checkbox" value="간병·치매"><span>간병·치매</span></label>
+        <label><input type="checkbox" value="종신"><span>종신</span></label>
+        <label><input type="checkbox" value="연금·노후"><span>연금·노후</span></label>
+        <label><input type="checkbox" value="자녀·태아"><span>자녀·태아</span></label>
+        <label><input type="checkbox" value="자동차"><span>자동차</span></label>
+        <label><input type="checkbox" value="법인·CEO"><span>법인·CEO</span></label>
+        <label><input type="checkbox" value="보장 점검"><span>기존 보험 점검</span></label>
+      </div>
+      <div class="f"><span class="lbl">통화 편한 시간</span>
+        <div class="seg">
+          <label><input type="radio" name="callTime" value="오전"><span>오전</span></label>
+          <label><input type="radio" name="callTime" value="오후"><span>오후</span></label>
+          <label><input type="radio" name="callTime" value="저녁"><span>저녁</span></label>
+        </div></div>
+      <div class="two">
+        <div class="f"><label for="carNo">차량번호</label><input id="carNo" type="text" maxlength="20" placeholder="12가 3456"></div>
+        <div class="f"><label for="carExpiry">자동차보험 만기</label><input id="carExpiry" type="date"></div>
+      </div>
+      <div class="f"><span class="lbl">기존 보험증권 사진</span>
+        <label class="up" for="file"><b>📎 사진 올리기</b>기존 보험 점검을 원하시면 올려주세요 (최대 6장)</label>
+        <input id="file" type="file" accept="image/*,application/pdf" multiple class="hidden">
+        <div class="thumbs" id="thumbs"></div></div>
+      <p class="err" data-err></p>
+      <div class="nav"><button class="btn sec" type="button" data-prev>이전</button><button class="btn pri" type="button" data-next>다음</button></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="step" data-step="3">
+      <h2>건강 정보</h2><p class="sub">3 / 4단계 · 정확한 설계를 위해 필요해요</p>
+      <div class="two">
+        <div class="f"><label for="height">키 (cm)</label><input id="height" type="number" inputmode="numeric" min="50" max="230" placeholder="170"></div>
+        <div class="f"><label for="weight">몸무게 (kg)</label><input id="weight" type="number" inputmode="numeric" min="10" max="250" placeholder="65"></div>
+      </div>
+      <div class="f"><span class="lbl">최근 3개월 안에 수술을 받으신 적이 있나요? <em>*</em></span>
+        <div class="seg">
+          <label><input type="radio" name="surgery" value="no"><span>없음</span></label>
+          <label><input type="radio" name="surgery" value="yes"><span>있음</span></label>
+        </div></div>
+      <div id="sgList" class="hidden" style="display:flex;flex-direction:column;gap:10px"></div>
+      <button type="button" class="add hidden" id="sgAdd">＋ 수술 이력 하나 더 추가</button>
+      <p class="err" data-err></p>
+      <div class="nav"><button class="btn sec" type="button" data-prev>이전</button><button class="btn pri" type="button" data-next>다음</button></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="step" data-step="4">
+      <h2>개인정보 동의</h2><p class="sub">4 / 4단계</p>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agAll"><label class="t all" for="agAll">아래 내용에 모두 동의합니다</label></div></div>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agPrivacy" data-ag><label class="t" for="agPrivacy">[필수] 개인정보 수집·이용 동의<small>보험 상담·보장 분석 목적</small></label><button type="button" data-doc>보기</button></div>
+        <div class="doc">수집 항목: 성함, 연락처, 주소, 직업, 사업장 주소, 차량번호, 자동차보험 만기, 관심 분야, 통화 가능 시간, 보험증권 사본<br>이용 목적: 보험 상담, 기존 보험 보장 분석, 보험 상품 설계 및 안내<br>보유 기간: 상담 종료 후 1년 (보험계약 체결 시 관련 법령에서 정한 기간)<br>동의를 거부할 수 있으며, 거부 시 상담이 제한될 수 있습니다.</div></div>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agId" data-ag><label class="t" for="agId">[필수] 고유식별정보 처리 동의<small>주민등록번호 · 보험 설계·가입 목적</small></label><button type="button" data-doc>보기</button></div>
+        <div class="doc">처리 항목: 주민등록번호<br>처리 목적: 보험 상품 설계, 보험료 산출, 보험계약 체결 진행<br>근거: 보험업법 시행령 제102조 (고유식별정보의 처리)<br>보유 기간: 위 개인정보 보유 기간과 같음<br>동의를 거부할 수 있으며, 거부 시 설계·가입 진행이 어렵습니다.</div></div>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agHealth" data-ag><label class="t" for="agHealth">[필수] 민감정보 처리 동의<small>키·몸무게·수술 이력 · 보험 설계·인수 검토 목적</small></label><button type="button" data-doc>보기</button></div>
+        <div class="doc">처리 항목: 키, 몸무게, 최근 3개월 수술 여부·사유·날짜·병원<br>처리 목적: 보험 상품 설계 및 가입 가능 여부 사전 검토<br>보유 기간: 위 개인정보 보유 기간과 같음<br>동의를 거부할 수 있으며, 거부 시 정확한 설계가 어렵습니다.</div></div>
+      <div class="cbx"><div class="r"><input type="checkbox" id="agMarketing" data-ag data-optional><label class="t" for="agMarketing">[선택] 상품 안내 연락 수신 동의<small>새 상품·보장 점검 안내 (전화·문자·카카오톡)</small></label></div></div>
+      <p class="err" data-err></p>
+      <div class="nav"><button class="btn sec" type="button" data-prev>이전</button><button class="btn pri" type="submit" id="send">보내기</button></div>
+    </section>
+  </form>
+
+  <div class="done hidden" id="done">
+    <div class="ck">✓</div>
+    <h2>잘 받았습니다</h2>
+    <p id="doneMsg">김영윤 지점장이 확인 후 연락드리겠습니다.</p>
+    <div class="card"><b>김영윤 지점장</b><br>더베스트금융서비스 Zeus사업부</div>
+  </div>
+  <div class="foot">입력하신 정보는 담당 설계사만 확인합니다.</div>
+</div>
+
+<script>
+(function(){
+  var API="https://script.google.com/macros/s/AKfycbzYKViNK2JnU5sHWad0RAabIvU1mrpGX--TAUJtpqPUOLWsLSeTWQQU82lM2x9GYozD/exec";
+  var step=1, files=[];
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var steps=$$('.step');
+  function show(n){
+    step=n; steps.forEach(function(s){s.classList.toggle('on', +s.dataset.step===n)});
+    $('#prog i').style.width=(n*25)+'%'; window.scrollTo(0,0);
+  }
+  function err(msg){ var e=$('.step.on [data-err]'); e.textContent=msg||''; return !msg; }
+  function val(id){ return ($('#'+id).value||'').trim(); }
+  function radio(n){ var r=$('input[name="'+n+'"]:checked'); return r?r.value:''; }
+
+  // 사업장 주소 표시
+  $$('input[name=kind]').forEach(function(r){ r.addEventListener('change',function(){ $('#bizBox').classList.toggle('hidden', radio('kind')==='개인'); }); });
+  // 전화번호 자동 하이픈
+  $('#phone').addEventListener('input',function(e){
+    var d=e.target.value.replace(/\D/g,'').slice(0,11);
+    e.target.value = d.length<4?d : d.length<8? d.slice(0,3)+'-'+d.slice(3) : d.slice(0,3)+'-'+d.slice(3,d.length-4)+'-'+d.slice(-4);
+  });
+  ['rrnF','rrnB'].forEach(function(id){ $('#'+id).addEventListener('input',function(e){ e.target.value=e.target.value.replace(/\D/g,''); if(id==='rrnF'&&e.target.value.length===6) $('#rrnB').focus(); }); });
+
+  function validRrn(f,b){
+    if(!/^\d{6}$/.test(f)||!/^\d{7}$/.test(b)) return false;
+    var mm=+f.slice(2,4), dd=+f.slice(4,6); return mm>=1&&mm<=12&&dd>=1&&dd<=31&&/[1-8]/.test(b[0]);
+  }
+  function check(n){
+    if(n===1){
+      if(!val('name')) return err('성함을 입력해 주세요.');
+      if(!validRrn(val('rrnF'),val('rrnB'))) return err('주민등록번호 13자리를 확인해 주세요.');
+      if(!/^01\d-\d{3,4}-\d{4}$/.test(val('phone'))) return err('연락처를 010-0000-0000 형식으로 입력해 주세요.');
+    }
+    if(n===3){
+      var s=radio('surgery'); if(!s) return err('최근 3개월 수술 여부를 골라주세요.');
+      if(s==='yes' && !$$('#sgList [data-reason]').some(function(i){return i.value.trim()})) return err('수술 사유를 적어주세요.');
+    }
+    return err('');
+  }
+  $$('[data-next]').forEach(function(b){ b.addEventListener('click',function(){ if(check(step)) show(step+1); }); });
+  $$('[data-prev]').forEach(function(b){ b.addEventListener('click',function(){ err(''); show(step-1); }); });
+
+  // 수술 이력
+  function addSg(){
+    var n=$$('#sgList .sg').length; if(n>=5) return;
+    var d=document.createElement('div'); d.className='sg';
+    d.innerHTML='<div class="f"><label>수술 사유 (병명) <em>*</em></label><input type="text" data-reason maxlength="60" placeholder="예) 담낭 결석"></div>'+
+      '<div class="two"><div class="f"><label>수술 날짜</label><input type="date" data-date></div><div class="f"><label>병원 (선택)</label><input type="text" data-hospital maxlength="40" placeholder="병원 이름"></div></div>'+
+      (n?'<button type="button" class="x">삭제</button>':'');
+    var x=d.querySelector('.x'); if(x) x.addEventListener('click',function(){d.remove();});
+    $('#sgList').appendChild(d);
+  }
+  $$('input[name=surgery]').forEach(function(r){ r.addEventListener('change',function(){
+    var yes=radio('surgery')==='yes';
+    $('#sgList').classList.toggle('hidden',!yes); $('#sgAdd').classList.toggle('hidden',!yes);
+    if(yes && !$$('#sgList .sg').length) addSg();
+  }); });
+  $('#sgAdd').addEventListener('click',addSg);
+
+  // 사진 (긴 변 1800px JPEG로 줄여서 전송)
+  function shrink(file){
+    return new Promise(function(res,rej){
+      if(file.type==='application/pdf'){
+        if(file.size>8*1024*1024) return rej('PDF는 8MB 이하만 올릴 수 있어요.');
+        var fr=new FileReader(); fr.onload=function(){res({mime:'application/pdf',b64:fr.result.split(',')[1],url:''})}; fr.onerror=function(){rej('파일을 읽지 못했어요.')}; fr.readAsDataURL(file); return;
+      }
+      var img=new Image(), u=URL.createObjectURL(file);
+      img.onload=function(){
+        var s=Math.min(1,1800/Math.max(img.width,img.height)), c=document.createElement('canvas');
+        c.width=Math.round(img.width*s); c.height=Math.round(img.height*s);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        var du=c.toDataURL('image/jpeg',0.82); URL.revokeObjectURL(u);
+        res({mime:'image/jpeg',b64:du.split(',')[1],url:du});
+      };
+      img.onerror=function(){URL.revokeObjectURL(u); rej('이 사진 형식은 열 수 없어요. 다른 사진으로 올려주세요.');};
+      img.src=u;
+    });
+  }
+  function drawThumbs(){
+    var t=$('#thumbs'); t.innerHTML='';
+    files.forEach(function(f,i){
+      var d=document.createElement('div'); if(f.url) d.style.backgroundImage='url('+f.url+')'; else d.textContent='PDF';
+      var b=document.createElement('button'); b.type='button'; b.textContent='×'; b.setAttribute('aria-label','사진 삭제');
+      b.addEventListener('click',function(){files.splice(i,1);drawThumbs();}); d.appendChild(b); t.appendChild(d);
+    });
+  }
+  $('#file').addEventListener('change',function(e){
+    var list=Array.prototype.slice.call(e.target.files).slice(0,6-files.length); e.target.value='';
+    err('');
+    list.reduce(function(p,f){ return p.then(function(){ return shrink(f).then(function(r){files.push(r);drawThumbs();}); }); },Promise.resolve())
+      .catch(function(m){err(typeof m==='string'?m:'사진을 올리지 못했어요.');});
+  });
+
+  // 동의
+  $$('[data-doc]').forEach(function(b){ b.addEventListener('click',function(){ b.closest('.cbx').classList.toggle('open'); }); });
+  $('#agAll').addEventListener('change',function(e){ $$('[data-ag]').forEach(function(c){c.checked=e.target.checked;}); });
+  $$('[data-ag]').forEach(function(c){ c.addEventListener('change',function(){ $('#agAll').checked=$$('[data-ag]').every(function(x){return x.checked;}); }); });
+
+  $('#fm').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!$('#agPrivacy').checked||!$('#agId').checked||!$('#agHealth').checked) return err('필수 동의 3개에 체크해 주세요.');
+    err('');
+    var btn=$('#send'); btn.disabled=true; btn.textContent='보내는 중…';
+    var data={
+      kind:radio('kind'), name:val('name'), rrnFront:val('rrnF'), rrnBack:val('rrnB'), phone:val('phone'),
+      address:val('address'), job:val('job'), bizAddress:radio('kind')==='개인'?'':val('bizAddress'),
+      interests:$$('#interests input:checked').map(function(c){return c.value}), callTime:radio('callTime'),
+      carNo:val('carNo'), carExpiry:val('carExpiry'), height:val('height'), weight:val('weight'),
+      surgery:radio('surgery'),
+      surgeries:$$('#sgList .sg').map(function(s){return {reason:s.querySelector('[data-reason]').value,date:s.querySelector('[data-date]').value,hospital:s.querySelector('[data-hospital]').value};}),
+      files:files.map(function(f){return {mime:f.mime,b64:f.b64};}),
+      agreePrivacy:true, agreeId:true, agreeHealth:true, agreeMarketing:$('#agMarketing').checked
+    };
+    fetch(API, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(data)})
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(!res || !res.ok) throw new Error((res && res.error) || '');
+        $('#fm').classList.add('hidden'); $('#prog').classList.add('hidden'); $('#done').classList.remove('hidden');
+        var ct=radio('callTime'); if(ct) $('#doneMsg').textContent='김영윤 지점장이 확인 후 '+ct+'에 연락드리겠습니다.';
+        window.scrollTo(0,0);
+      })
+      .catch(function(x){
+        btn.disabled=false; btn.textContent='보내기';
+        err((x&&x.message)||'보내지 못했어요. 잠시 후 다시 시도해 주세요.');
+      });
+  });
+})();
+</script>
+</body></html>
